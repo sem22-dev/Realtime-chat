@@ -22,6 +22,7 @@ const LandingPage: React.FC = () => {
           </button>
         </p>
       </div>
+      <a href='https://twitter.com/Thotsem22' target='_blank' className='absolute bottom-12 text-green-600'>@sem</a>
     </div>
   );
 };
