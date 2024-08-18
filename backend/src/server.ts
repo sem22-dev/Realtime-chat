@@ -29,7 +29,7 @@ const server = app.listen(port, () => {
 
 const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: "https://hiry-chat-clo4.vercel.app",
       methods: ["GET", "POST"]
     }
 });
