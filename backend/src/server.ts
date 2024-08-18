@@ -66,7 +66,7 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
 });
 
 // Serve uploaded files statically
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(uploadDir));
 
 app.get("/", async (req, res) => {
     try {
