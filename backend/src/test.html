@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Test</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Socket.IO Test</h1>
+    <button id="connectBtn">Connect</button>
+    <button id="loginBtn">Login</button>
+    <button id="sendMsgBtn">Send Message</button>
+    <button id="disconnectBtn">Disconnect</button>
+    <div id="messages"></div>
+
+    <script>
+        const socket = io('http://localhost:8080');
+        const messagesDiv = document.getElementById('messages');
+
+        document.getElementById('connectBtn').addEventListener('click', () => {
+            socket.connect();
+            addMessage('Connected to server');
+        });
+
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            const userId = prompt('Enter user ID:');
+            socket.emit('login', userId);
+            addMessage(`Logged in as user ${userId}`);
+        });
+
+        document.getElementById('sendMsgBtn').addEventListener('click', () => {
+            const senderId = prompt('Enter sender ID:');
+            const receiverId = prompt('Enter receiver ID:');
+            const content = prompt('Enter message content:');
+            socket.emit('sendMessage', { senderId, receiverId, content });
+            addMessage(`Sent message: ${content}`);
+        });
+
+        document.getElementById('disconnectBtn').addEventListener('click', () => {
+            socket.disconnect();
+            addMessage('Disconnected from server');
+        });
+
+        socket.on('newMessage', (message) => {
+            addMessage(`Received message: ${JSON.stringify(message)}`);
+        });
+
+        socket.on('userStatus', (status) => {
+            addMessage(`User status update: ${JSON.stringify(status)}`);
+        });
+
+        function addMessage(message) {
+            const p = document.createElement('p');
+            p.textContent = message;
+            messagesDiv.appendChild(p);
+        }
+    </script>
+</body>
+</html>
