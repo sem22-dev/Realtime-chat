@@ -1,7 +1,7 @@
 
 # Multi-User Messaging System
 
-This project is built as part of the Hiry assignment, featuring a multi-user messaging system using the following technologies:
+A multi-user messaging system using the following technologies:
 
 - **Frontend**: React (Vite) with Tailwind CSS
 - **Backend**: Node.js with Express
