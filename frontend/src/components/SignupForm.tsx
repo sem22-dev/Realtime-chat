@@ -35,7 +35,7 @@ const SignupForm: React.FC = () => {
     setError(null);
 
     try {
-      await axios.post('http://localhost:8080/api/signup', formData);
+      await axios.post('https://hirychat.onrender.com/api/signup', formData);
       setShowVerification(true);
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {

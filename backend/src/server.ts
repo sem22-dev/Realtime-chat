@@ -54,7 +54,7 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
     return res.status(400).send('No file uploaded.');
   }
   
-  const fileUrl = `http://localhost:8080/uploads/${req.file.filename}`;
+  const fileUrl = `https://hirychat.onrender.com/uploads/${req.file.filename}`;
   res.json({ url: fileUrl });
 });
 

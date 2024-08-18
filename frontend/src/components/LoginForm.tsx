@@ -31,7 +31,7 @@ const LoginForm: React.FC = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.post('http://localhost:8080/api/login', formData);
+      const response = await axios.post('https://hirychat.onrender.com/api/login', formData);
       console.log('Login response:', response.data);
       
       if (response.data.isVerified) {

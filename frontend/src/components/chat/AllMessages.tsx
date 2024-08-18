@@ -36,7 +36,7 @@ const AllMessages: React.FC<AllMessagesProps> = ({ currentUserId, onSelectUser, 
 
   const handleUserSelect = async (senderUser: SenderUser) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/mark-messages-read`, {
+      const response = await fetch(`https://hirychat.onrender.com/api/mark-messages-read`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const AllMessages: React.FC<AllMessagesProps> = ({ currentUserId, onSelectUser, 
 
   const fetchLatestMessages = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/latest-messages?userId=${currentUserId}`);
+      const response = await fetch(`https://hirychat.onrender.com/api/latest-messages?userId=${currentUserId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch latest messages');
       }

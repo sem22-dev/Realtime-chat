@@ -10,7 +10,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:8080'); // Replace with your server URL
+    const newSocket = io('https://hirychat.onrender.com'); // Replace with your server URL
     setSocket(newSocket);
 
     return () => {

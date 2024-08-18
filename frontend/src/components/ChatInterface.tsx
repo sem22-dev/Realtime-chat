@@ -75,7 +75,7 @@ const ChatInterface = () => {
 
   const fetchMessages = async (otherUserId: number) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/messages?userId1=${userId}&userId2=${otherUserId}`);
+      const response = await fetch(`https://hirychat.onrender.com/api/messages?userId1=${userId}&userId2=${otherUserId}`);
       if (!response.ok) {
         const errorText = await response.text();
         console.error("Error response:", errorText);
@@ -113,7 +113,7 @@ const ChatInterface = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:8080/');
+      const response = await fetch('https://hirychat.onrender.com/');
       if (!response.ok) {
         const errorText = await response.text();
         console.error("Error response:", errorText);
@@ -140,7 +140,7 @@ const ChatInterface = () => {
       formData.append('receiverId', selectedUser.id.toString());
   
       try {
-        const response = await axios.post('http://localhost:8080/api/upload', formData, {
+        const response = await axios.post('https://hirychat.onrender.com/api/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

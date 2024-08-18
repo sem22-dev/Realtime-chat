@@ -20,7 +20,7 @@ const EmailVerificationForm: React.FC<EmailVerificationFormProps> = ({ email }) 
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:8080/api/verify-email', {
+      const response = await axios.post('https://hirychat.onrender.com/api/verify-email', {
         email,
         verificationCode
       });

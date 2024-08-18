@@ -30,7 +30,7 @@ const Inbox: React.FC<InboxProps> = ({ currentUserId, onSelectUser, handleLogout
 
   const handleUserSelect = async (senderUser: SenderUser) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/mark-messages-read`, {
+      const response = await fetch(`https://hirychat.onrender.com/api/mark-messages-read`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ const Inbox: React.FC<InboxProps> = ({ currentUserId, onSelectUser, handleLogout
 
   const fetchUnreadMessages = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/unread-messages?userId=${currentUserId}`);
+      const response = await fetch(`https://hirychat.onrender.com/api/unread-messages?userId=${currentUserId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch unread messages');
       }
