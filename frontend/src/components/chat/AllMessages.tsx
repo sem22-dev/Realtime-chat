@@ -11,6 +11,7 @@ interface Message {
   read: boolean;
   senderUsername: string;
   senderEmail: string;
+  type: 'text' | 'image' | 'video';  // Add this line
 }
 
 interface SenderUser {
@@ -29,6 +30,17 @@ const AllMessages: React.FC<AllMessagesProps> = ({ currentUserId, onSelectUser, 
   const [latestMessages, setLatestMessages] = useState<Message[]>([]);
 
   console.log('latest :', latestMessages)
+
+  const getMessagePreview = (message: Message) => {
+    switch (message.type) {
+      case 'image':
+        return 'Image';
+      case 'video':
+        return 'Video';
+      default:
+        return message.content;
+    }
+  };
 
   useEffect(() => {
     fetchLatestMessages();
@@ -103,7 +115,7 @@ const AllMessages: React.FC<AllMessagesProps> = ({ currentUserId, onSelectUser, 
             <div className="flex-1">
               <p className="font-semibold">{message.senderUsername}</p>
               <p className={`text-sm ${message.read ? 'text-gray-500' : 'text-black font-semibold'} truncate`}>
-                {message.content}
+              {getMessagePreview(message)}
               </p>
             </div>
             {!message.read && (

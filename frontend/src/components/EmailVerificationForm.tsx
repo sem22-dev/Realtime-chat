@@ -24,7 +24,7 @@ const EmailVerificationForm: React.FC<EmailVerificationFormProps> = ({ email }) 
         email,
         verificationCode
       });
-      login(response.data.token, response.data.user.id);
+      login(response.data.token, response.data.user.id, response.data.user.username);
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
         setError(err.response.data.message || 'An error occurred during verification.');

@@ -190,7 +190,7 @@ const ChatInterface = () => {
               content: message.content,
               isSender: message.senderId === parseInt(userId as string, 10),
               timestamp: new Date(message.timestamp),
-              type: message.type || 'text'  // Add this line
+              type: message.type || 'text'
             }];
             
             // Schedule scrolling after the state update
