@@ -47,7 +47,6 @@ cd src
 ```bash
     DATABASE_URL=your_postgres_connection_string
     JWT_SECRET=your_jwt_secret_key
-    DATABASE_URL=
     GMAIL_USER=
     GMAIL_APP_PASSWORD=
 ```
