@@ -1,6 +1,5 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import { AuthContext } from '.././context/authContext';
 import EmailVerificationForm from './EmailVerificationForm'; // New component we'll create
 
 interface SignupFormData {
@@ -18,8 +17,6 @@ const SignupForm: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showVerification, setShowVerification] = useState(false);
-
-  const { login } = useContext(AuthContext) || { login: () => {} };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

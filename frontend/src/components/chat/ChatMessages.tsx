@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { FaDownload, FaExpandArrowsAlt } from 'react-icons/fa';
 
 interface Message {
   content: string;
