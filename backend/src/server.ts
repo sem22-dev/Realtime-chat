@@ -14,6 +14,7 @@ import { and, eq, sql, or, like, desc } from "drizzle-orm";
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs'
+import { createClient } from '@supabase/supabase-js';
 
 dotenv.config();
 
@@ -37,6 +38,15 @@ const io = new Server(server, {
 // Set up Socket.IO
 setupSocketIO(io);
 
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Supabase URL or Anon Key is not defined in environment variables');
+}
+
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 const uploadDir = path.join(__dirname, 'uploads');
 
 if (!fs.existsSync(uploadDir)) {
@@ -56,13 +66,42 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post('/api/upload', upload.single('file'), (req, res) => {
+app.post('/api/upload', upload.single('file'), async (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
+
+  console.log('File details:', {
+    filename: req.file.filename,
+    mimetype: req.file.mimetype,
+    size: req.file.size,
+    path: req.file.path
+  });
   
-  const fileUrl = `https://hirychat.onrender.com/uploads/${req.file.filename}`;
-  res.json({ url: fileUrl });
+  try {
+    // Read the file from disk
+    const fileContent = fs.readFileSync(req.file.path);
+    
+    const { data, error } = await supabase.storage
+      .from('realtime-chat')
+      .upload(`uploads/${req.file.filename}`, fileContent, {
+        contentType: req.file.mimetype,
+      });
+
+    if (error) throw error;
+
+    const { data: urlData } = supabase.storage
+      .from('realtime-chat')
+      .getPublicUrl(`uploads/${req.file.filename}`);
+
+    // Clean up the temporary file
+    fs.unlinkSync(req.file.path);
+
+    res.json({ url: urlData.publicUrl });
+  } catch (error) {
+    console.error('Error uploading file:', error);
+    res.status(500).json({ error: 'File upload failed' });
+  }
 });
 
 // Serve uploaded files statically
