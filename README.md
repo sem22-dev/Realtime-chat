@@ -56,6 +56,14 @@ cd src
     npx drizzle-kit migrate
     npx drizzle-kit push
 ```
+- Run backend:
+```bash
+    cd src
+    npx tsx server.ts
+```
+
+
+
 
 ### 3. Setup the Frontend
 
